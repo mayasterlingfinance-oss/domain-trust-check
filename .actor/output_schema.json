@@ -1,0 +1,19 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "Domain Trust Check output",
+  "description": "One dataset item per input domain: 0-100 trust/hygiene score, level, reasons and the underlying signals (RDAP age/registrar, SPF/DMARC, TLS, HTTPS). Invalid input and non-existent domains are included with charged=false.",
+  "properties": {
+    "overview": {
+      "type": "string",
+      "title": "Results (overview)",
+      "description": "All checked domains with score, level, reasons and key signals.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items?view=overview"
+    },
+    "results": {
+      "type": "string",
+      "title": "Full results",
+      "description": "All dataset items including optional raw DNS/RDAP/TLS/HTTP details.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items"
+    }
+  }
+}

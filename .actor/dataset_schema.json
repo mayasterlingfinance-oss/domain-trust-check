@@ -1,0 +1,59 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "domain": { "type": "string", "description": "Normalized registrable host that was checked.", "example": "apify.com" },
+      "input": { "type": "string", "description": "Original input value (only on rows rejected as invalid input)." },
+      "score": { "type": "number", "description": "Trust/hygiene score 0-100 (higher is better).", "example": 100 },
+      "level": { "type": "string", "description": "good (>=80), fair (>=60), weak (>=40), high_risk (<40) or invalid (domain does not exist).", "example": "good" },
+      "reasons": { "type": "array", "items": { "type": "string" }, "description": "Every penalty applied to the score.", "example": ["no HSTS header"] },
+      "domain_age_days": { "type": ["integer", "null"], "description": "Days since registration (RDAP).", "example": 6338 },
+      "registrar": { "type": ["string", "null"], "description": "Registrar name from RDAP." },
+      "created": { "type": ["string", "null"], "description": "Registration date (ISO 8601)." },
+      "expires": { "type": ["string", "null"], "description": "Registration expiry date (ISO 8601)." },
+      "has_mx": { "type": ["boolean", "null"], "description": "Domain has MX records (and no null MX)." },
+      "spf": { "type": ["boolean", "null"], "description": "SPF record present." },
+      "spf_all": { "type": ["string", "null"], "description": "SPF 'all' qualifier (-, ~, ?, +)." },
+      "dmarc_policy": { "type": ["string", "null"], "description": "DMARC policy (none, quarantine, reject) or null if no DMARC." },
+      "tls_valid": { "type": ["boolean", "null"], "description": "TLS certificate chain valid for the host." },
+      "tls_issuer": { "type": ["string", "null"], "description": "TLS certificate issuer organisation." },
+      "tls_days_left": { "type": ["integer", "null"], "description": "Days until the TLS certificate expires." },
+      "https_status": { "type": ["integer", "null"], "description": "HTTP status of GET https://<domain>/ after redirects." },
+      "final_url": { "type": ["string", "null"], "description": "Final URL after redirects." },
+      "hsts": { "type": ["boolean", "null"], "description": "Strict-Transport-Security header present." },
+      "checked_at": { "type": ["string", "null"], "description": "Check timestamp (ISO 8601)." },
+      "details": { "type": ["object", "null"], "description": "Raw DNS/RDAP/TLS/HTTP data (when includeDetails=true)." },
+      "charged": { "type": ["boolean", "null"], "description": "false for rows that were not charged (invalid input, non-existent domain, errors)." },
+      "error": { "type": ["string", "null"], "description": "Error message for rows that could not be checked." }
+    }
+  },
+  "views": {
+    "overview": {
+      "title": "Overview",
+      "description": "Score, level, reasons and key signals per domain.",
+      "transformation": {
+        "fields": ["domain", "score", "level", "reasons", "domain_age_days", "registrar", "spf", "dmarc_policy", "tls_valid", "tls_days_left", "https_status", "error"]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "domain": { "label": "Domain", "format": "text" },
+          "score": { "label": "Score", "format": "number" },
+          "level": { "label": "Level", "format": "text" },
+          "reasons": { "label": "Reasons", "format": "array" },
+          "domain_age_days": { "label": "Age (days)", "format": "number" },
+          "registrar": { "label": "Registrar", "format": "text" },
+          "spf": { "label": "SPF", "format": "boolean" },
+          "dmarc_policy": { "label": "DMARC", "format": "text" },
+          "tls_valid": { "label": "TLS valid", "format": "boolean" },
+          "tls_days_left": { "label": "TLS days left", "format": "number" },
+          "https_status": { "label": "HTTPS status", "format": "number" },
+          "error": { "label": "Error", "format": "text" }
+        }
+      }
+    }
+  }
+}
