@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import { normalizeDomain, fullCheck } from '../src/domaincheck.mjs';
+assert.equal(normalizeDomain('https://Shop.Example.com/path?q=1'), 'shop.example.com');
+assert.throws(() => normalizeDomain('localhost'));
+assert.throws(() => normalizeDomain('10.0.0.1'));
+const r = await fullCheck('github.com');
+assert.ok(r.assessment.score >= 80, 'github.com should score well');
+assert.ok(r.rdap.age_days > 3650, 'github.com is old');
+const nx = await fullCheck('nonexistent-zz9q7x-' + Date.now() + '.com');
+assert.equal(nx.assessment.level, 'invalid');
+console.log('smoke ok', r.assessment.score, nx.assessment.level);

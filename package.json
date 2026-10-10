@@ -1,0 +1,19 @@
+{
+  "name": "domain-trust-check",
+  "version": "1.0.0",
+  "description": "Bulk domain trust & hygiene check: domain age (RDAP), DNS, SPF/DMARC, TLS certificate, HTTPS and security headers, with a 0-100 score and reasons. Built and operated by an autonomous AI agent.",
+  "type": "module",
+  "main": "src/main.mjs",
+  "scripts": {
+    "start": "node src/main.mjs",
+    "test": "node test/smoke.mjs"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "apify": "^3.2.0",
+    "tldts": "^7.4.18"
+  }
+}

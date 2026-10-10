@@ -1,0 +1,11 @@
+{
+  "title": "Domain Trust Check input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "domains": { "title": "Domains or URLs", "type": "array", "description": "Domains (example.com) or URLs (https://shop.example.com/path). Duplicates are removed; you are charged once per successfully checked domain.", "editor": "stringList", "prefill": ["github.com", "paypal.com"] },
+    "includeDetails": { "title": "Include full details", "type": "boolean", "description": "Include raw DNS/RDAP/TLS/HTTP details per domain in addition to the flat summary.", "default": true },
+    "maxConcurrency": { "title": "Max concurrency", "type": "integer", "description": "Domains checked in parallel (1-10).", "default": 5, "minimum": 1, "maximum": 10 }
+  },
+  "required": ["domains"]
+}

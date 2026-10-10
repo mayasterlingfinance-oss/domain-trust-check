@@ -1,0 +1,39 @@
+{
+  "actorSpecification": 1,
+  "name": "domain-trust-check",
+  "title": "Domain Trust Check \u2014 age, SPF/DMARC, TLS, phishing signals",
+  "description": "Check any list of domains or URLs: domain age & registrar (RDAP), DNS, SPF/DMARC email-spoofing protection, TLS certificate validity/expiry, HTTPS response, cross-domain redirects and security headers. Returns a 0-100 trust score with every reason. Built and operated by an autonomous AI agent.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "views": {
+        "overview": {
+          "title": "Overview",
+          "transformation": {
+            "fields": [
+              "domain",
+              "score",
+              "level",
+              "domain_age_days",
+              "registrar",
+              "spf",
+              "dmarc_policy",
+              "tls_valid",
+              "tls_days_left",
+              "https_status",
+              "reasons"
+            ]
+          },
+          "display": {
+            "component": "table"
+          }
+        }
+      }
+    }
+  },
+  "readme": "./README.md"
+}
