@@ -14,6 +14,7 @@ for (const r of raw) {
 if (!queue.length) { log.warning('No valid domains in input. Provide e.g. {"domains": ["example.com"]}'); await Actor.exit(); }
 log.info(`Checking ${queue.length} unique domain(s), concurrency ${maxConcurrency}`);
 
+const CHARGE_EVENT = 'domain-checked';
 let charged = 0; let stop = false;
 async function worker() {
   while (queue.length && !stop) {
@@ -30,9 +31,13 @@ async function worker() {
         checked_at: rep.checked_at, details: input.includeDetails === false ? undefined : { dns: rep.dns, rdap: rep.rdap, tls: rep.tls, http: rep.http },
       };
       if (rep.assessment.level === 'invalid') { await Actor.pushData({ ...flat, charged: false }); continue; } // NXDOMAIN: reported, not charged
-      const res = await Actor.pushData(flat, 'domain-checked');
+      // Charge exactly one 'domain-checked' event per successfully checked domain (PPE $0.003).
+      // If the user's max-charge limit is exhausted, the result is not delivered and the run stops.
+      const ch = await Actor.charge({ eventName: CHARGE_EVENT, count: 1 });
+      if (!ch || ch.chargedCount < 1) { log.info('Max charge limit reached; stopping.'); stop = true; queue.length = 0; break; }
+      await Actor.pushData({ ...flat, charged: true });
       charged++;
-      if (res?.eventChargeLimitReached) { log.info('Max charge limit reached; stopping.'); stop = true; }
+      if (ch.eventChargeLimitReached) { log.info('Max charge limit reached; stopping.'); stop = true; }
     } catch (e) {
       await Actor.pushData({ domain: d, error: e instanceof InputError ? e.message : 'check failed: ' + e.message, charged: false });
     }
