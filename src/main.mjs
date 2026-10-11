@@ -34,8 +34,8 @@ async function worker() {
       // Charge exactly one 'domain-checked' event per successfully checked domain (PPE $0.003).
       // If the user's max-charge limit is exhausted, the result is not delivered and the run stops.
       const ch = await Actor.charge({ eventName: CHARGE_EVENT, count: 1 });
-      if (!ch || ch.chargedCount < 1) { log.info('Max charge limit reached; stopping.'); stop = true; queue.length = 0; break; }
-      await Actor.pushData({ ...flat, charged: true });
+      if (ch.chargedCount < 1 && ch.eventChargeLimitReached) { log.info('Max charge limit reached; stopping.'); stop = true; queue.length = 0; break; }
+      await Actor.pushData({ ...flat, charged: ch.chargedCount > 0 });
       charged++;
       if (ch.eventChargeLimitReached) { log.info('Max charge limit reached; stopping.'); stop = true; }
     } catch (e) {
