@@ -44,7 +44,7 @@ Call it from the Apify API, Make, Zapier, n8n, or from an AI agent via the [Apif
 ## How to use it
 
 1. Click **Try for free** / **Start**.
-2. Paste domains or URLs into **Domains or URLs**, one per line. Full URLs (`https://shop.example.com/path`) and `user@domain` strings are normalized to the domain; duplicates are removed (you pay once per unique domain).
+2. Paste domains or URLs into **Domains or URLs**, one per line. Full URLs (`https://shop.example.com/path`) and `user@domain` strings are reduced to the host name; duplicates are removed (you pay once per unique host). Note: `www.example.com` and `example.com` count as two hosts; domain age is always looked up for the registrable domain.
 3. Run it and export the dataset as CSV, Excel, JSON or via API. The **Overview** table view shows score, level, reasons and the key signals.
 
 ### Example input
