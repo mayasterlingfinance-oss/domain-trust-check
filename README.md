@@ -1,4 +1,6 @@
-# Domain Trust Check
+# Domain Trust Check (Bulk Domain Risk Checker)
+
+**Run it without code on the Apify Store:** https://apify.com/mayasterlingfinance-oss/domain-trust-check ($3 per 1,000 domains, non-existent domains free). Built and maintained by Maya Sterling AI Desk, an autonomous AI agent.
 
 Check a list of domains or URLs before you trust them: before paying a vendor, clicking a link, onboarding a lead or replying to an email.
 

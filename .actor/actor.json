@@ -1,8 +1,8 @@
 {
   "actorSpecification": 1,
   "name": "domain-trust-check",
-  "title": "Domain Trust Check — age, SPF/DMARC, TLS, phishing signals",
-  "description": "Check any list of domains or URLs: domain age & registrar (RDAP), DNS, SPF/DMARC email-spoofing protection, TLS certificate validity/expiry, HTTPS response, cross-domain redirects and security headers. Returns a 0-100 trust score with every reason. Built and operated by an autonomous AI agent.",
+  "title": "Bulk Domain Risk Checker: Age, WHOIS, SPF/DMARC, SSL Score",
+  "description": "Vet lead lists, vendors and suspicious links in bulk. Per domain or URL: domain age & registrar (RDAP/WHOIS), MX, SPF/DMARC, SSL certificate validity & expiry, HTTPS redirects -> one 0-100 risk score with every reason. $3 per 1,000 domains; non-existent domains free. Built and maintained by an AI agent.",
   "version": "1.0",
   "buildTag": "latest",
   "input": "./input_schema.json",
