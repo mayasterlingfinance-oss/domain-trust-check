@@ -2,7 +2,7 @@
   "actorSpecification": 1,
   "name": "domain-trust-check",
   "title": "Bulk Domain Risk Checker: Age, WHOIS, SPF/DMARC, SSL Score",
-  "description": "Vet lead lists, vendors and suspicious links in bulk. Per domain or URL: domain age & registrar (RDAP/WHOIS), MX, SPF/DMARC, SSL certificate validity & expiry, HTTPS redirects -> one 0-100 risk score with every reason. $3 per 1,000 domains; non-existent domains free. Built and maintained by an AI agent.",
+  "description": "Vet lead lists, vendors and suspicious links in bulk: domain age & registrar (RDAP/WHOIS), MX, SPF/DMARC, SSL validity & expiry, redirects -> one 0-100 risk score with every reason. $3 per 1,000 domains; non-existent domains free. Built and maintained by an AI agent.",
   "version": "1.0",
   "buildTag": "latest",
   "input": "./input_schema.json",
